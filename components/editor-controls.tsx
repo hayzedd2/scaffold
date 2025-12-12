@@ -1,6 +1,6 @@
 "use client";
 import { useCodeContextStore } from "@/lib/store/useCodeContextStore";
-import { BrushCleaningIcon, CheckIcon, CopyIcon } from "lucide-react";
+import { BrushCleaningIcon, CheckIcon } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -9,6 +9,7 @@ import {
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { IconCopy, IconDownload } from "@tabler/icons-react";
 
 export const EditorControls = ({ code }: { code: string }) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -17,21 +18,23 @@ export const EditorControls = ({ code }: { code: string }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     setIsCopied(true);
-    toast.success("Copied to clipboard!");
+    toast.success("Code copied to clipboard!");
     setTimeout(() => setIsCopied(false), 2000);
   };
 
   return (
-    <div className="controls flex items-center gap-3">
+    <div className="controls flex items-center gap-2">
       <Tooltip>
         <TooltipTrigger asChild>
-          <BrushCleaningIcon
-            className="size-4 text-fg1 cursor-pointer"
-            onClick={() => {
-              if (selectedFileId) updateFileContent(selectedFileId, "");
-              toast.success("File cleared!");
-            }}
-          />
+         <div>
+           <BrushCleaningIcon
+             className="size-4 text-fg1 cursor-pointer shake-icon"
+             onClick={() => {
+               if (selectedFileId) updateFileContent(selectedFileId, "");
+               toast.success("File cleared!");
+             }}
+           />
+         </div>
         </TooltipTrigger>
         <TooltipContent>
           <p>Clear file</p>
@@ -43,8 +46,8 @@ export const EditorControls = ({ code }: { code: string }) => {
       ) : (
         <Tooltip>
           <TooltipTrigger asChild>
-            <CopyIcon
-              className="w-4 h-4 text-fg1 cursor-pointer"
+            <IconCopy
+              className="size-4 text-fg1 cursor-pointer"
               onClick={handleCopy}
             />
           </TooltipTrigger>
@@ -54,6 +57,20 @@ export const EditorControls = ({ code }: { code: string }) => {
         </Tooltip>
        
       )}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <IconDownload
+            className="size-4 text-fg1 cursor-pointer"
+            onClick={() => {
+              // if (selectedFileId) updateFileContent(selectedFileId, "");
+              // toast.success("File cleared!");
+            }}
+          />
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Download file</p>
+        </TooltipContent>
+      </Tooltip>
     </div>
   );
 };

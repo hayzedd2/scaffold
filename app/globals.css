@@ -128,11 +128,31 @@
 .shiki-container code,
 .shiki-container pre,
 .shiki-container .shiki {
-    margin: 0;
-      padding: 1rem;
-      overflow-x: auto;
-      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-      font-size: 14px;
-      line-height: 1.5;
-      
+    font-family: "Fira Code", monospace;
+    font-size: 12px !important;
+    background-color: transparent !important;
+    line-height: 1.5 !important;
+    padding-bottom: 1rem !important;
+}
+
+/* shake animation */
+@keyframes shake-wobble {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(5deg);
+}
+    50% {
+        transform: rotate(-5deg);
+    }
+    75% {
+        transform: rotate(3deg);
+    }
+}
+
+.shake-icon:hover {
+    animation: shake-wobble 0.5s ease-in-out 1;
+    transform-origin: 50% 50%;
 }

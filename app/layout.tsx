@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
+import { Fira_Code, Nunito, PT_Serif } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
-const pt_serif = Nunito({
+const pt_serif = Fira_Code({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  // weight: ["400", "700"],
   variable: "--font-pt-serif",
 });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${pt_serif.className} antialiased`}>{children}     <Toaster/></body>
+      <body className={`${pt_serif.className} dark  antialiased`}>{children}     <Toaster/></body>
   
     </html>
   );

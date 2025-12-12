@@ -9,7 +9,7 @@ import { CircleOffIcon } from "lucide-react"
 
 export function EmptyEditor() {
   return (
-    <Empty>
+    <Empty className="flex-1 h-full">
       <EmptyHeader>
         <EmptyMedia variant="icon">
           <CircleOffIcon  />
