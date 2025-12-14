@@ -22,10 +22,138 @@ interface CodeContextState {
 
 export const useCodeContextStore = create<CodeContextState>((set, get) => ({
   project: {
-    name: "my-project",
+    name: "E-commerce demo",
     children: [
-      
-    ]
+      {
+        id: "folder-1735000001-abc123",
+        name: "src",
+        type: "folder",
+        children: [
+          {
+            id: "folder-1735000002-def456",
+            name: "components",
+            type: "folder",
+            children: [
+              {
+                id: "file-1735000003-ghi789",
+                name: "Header.tsx",
+                type: "file",
+                content:
+                  "import React from 'react'\n\nexport default function Header() {\n  return <header>My Store</header>\n}",
+              },
+              {
+                id: "file-1735000004-jkl012",
+                name: "ProductCard.tsx",
+                type: "file",
+                content:
+                  'interface Props {\n  title: string\n  price: number\n}\n\nexport default function ProductCard({ title, price }: Props) {\n  return (\n    <div className="card">\n      <h3>{title}</h3>\n      <p>${price}</p>\n    </div>\n  )\n}',
+              },
+              {
+                id: "file-1735000005-mno345",
+                name: "Button.tsx",
+                type: "file",
+                content: "",
+              },
+            ],
+          },
+          {
+            id: "folder-1735000006-pqr678",
+            name: "pages",
+            type: "folder",
+            children: [
+              {
+                id: "file-1735000007-stu901",
+                name: "index.tsx",
+                type: "file",
+                content:
+                  "import Header from '@/components/Header'\n\nexport default function Home() {\n  return (\n    <main>\n      <Header />\n      <h1>Welcome</h1>\n    </main>\n  )\n}",
+              },
+              {
+                id: "file-1735000008-vwx234",
+                name: "products.tsx",
+                type: "file",
+                content: "",
+              },
+            ],
+          },
+          {
+            id: "folder-1735000009-yza567",
+            name: "lib",
+            type: "folder",
+            children: [
+              {
+                id: "file-1735000010-bcd890",
+                name: "db.ts",
+                type: "file",
+                content:
+                  "import { neon } from '@neondatabase/serverless'\n\nexport const sql = neon(process.env.DATABASE_URL!)",
+              },
+              {
+                id: "file-1735000011-efg123",
+                name: "utils.ts",
+                type: "file",
+                content:
+                  "export function formatPrice(cents: number) {\n  return `$${(cents / 100).toFixed(2)}`\n}",
+              },
+            ],
+          },
+          {
+            id: "folder-1735000012-hij456",
+            name: "styles",
+            type: "folder",
+            children: [
+              {
+                id: "file-1735000013-klm789",
+                name: "globals.css",
+                type: "file",
+                content:
+                  "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: system-ui, sans-serif;\n}",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: "folder-1735000014-nop012",
+        name: "public",
+        type: "folder",
+        children: [
+          {
+            id: "file-1735000015-qrs345",
+            name: "logo.svg",
+            type: "file",
+            content: "",
+          },
+          {
+            id: "file-1735000016-tuv678",
+            name: "favicon.ico",
+            type: "file",
+            content: "",
+          },
+        ],
+      },
+      {
+        id: "file-1735000017-wxy901",
+        name: "package.json",
+        type: "file",
+        content:
+          '{\n  "name": "ecommerce-app",\n  "version": "1.0.0",\n  "dependencies": {\n    "react": "^18.2.0",\n    "next": "^14.0.0"\n  }\n}',
+      },
+      {
+        id: "file-1735000018-zab234",
+        name: "tsconfig.json",
+        type: "file",
+        content:
+          '{\n  "compilerOptions": {\n    "target": "ES2020",\n    "lib": ["ES2020", "DOM"],\n    "jsx": "react-jsx",\n    "module": "ESNext",\n    "moduleResolution": "bundler"\n  }\n}',
+      },
+      {
+        id: "file-1735000019-cde567",
+        name: "README.md",
+        type: "file",
+        content:
+          "# Ecommerce App\n\nA modern ecommerce application built with Next.js.\n\n## Getting Started\n\n```bash\nnpm install\nnpm run dev\n```",
+      },
+    ],
   },
   selectedFileId: null,
   /*

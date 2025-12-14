@@ -5,23 +5,33 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useCodeContextStore } from "@/lib/store/useCodeContextStore";
 import { EmptyEditor } from "./empty-editor";
 import { Header } from "./header";
+import { findNode } from "@/lib/nodes";
 
 export const App = () => {
-  const { getSelectedFile, project } = useCodeContextStore();
-  const selectedFile = getSelectedFile();
+  const selectedFile = useCodeContextStore((state) => {
+    if (!state.selectedFileId) return null;
+  
+    const node = findNode(
+      state.project.children,
+      state.selectedFileId
+    );
+  
+    return node?.type === "file" ? node : null;
+  });
+
 
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
         <div className="min-h-screen flex flex-col ">
-          <Header projectname={project.name} />
+          <Header /> 
           <div className="p-2 flex-1 ">
             {selectedFile ? (
               <CodeEditor
                 code={selectedFile.content}
                 fileName={selectedFile.name}
-                highlightedLineNumbers={[20, 21, 22, 23, 24, 25, 26, 27, 28]}
+                highlightedLineNumbers={[6, 21, 9]}
                 showLineNumbers
               />
             ) : (

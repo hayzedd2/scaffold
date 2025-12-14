@@ -59,7 +59,7 @@ export const TreeItem = ({ node }: { node: TreeNode }) => {
           <input
             readOnly={isReadOnly !== node.id}
             className={`
-              truncate font-medium  min-w-0 outline-none
+              truncate font-medium  min-w-0 outline-none 
               ${isReadOnly === node.id ? "cursor-text bg-transparent" : "cursor-default  bg-transparent"}
             `}
             value={node.name}
@@ -115,7 +115,7 @@ export const TreeItem = ({ node }: { node: TreeNode }) => {
             ref={inputRef}
             readOnly={isReadOnlyFolder !== node.id}
             className={`
-              truncate font-medium min-w-0 outline-none
+              truncate font-medium min-w-0 outline-none text-sm
               ${isReadOnlyFolder === node.id ? "cursor-text bg-transparent" : "pointer-events-none select-none  bg-transparent"}
             `}
             value={node.name}
