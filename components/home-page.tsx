@@ -10,14 +10,18 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { scaffoldService } from "@/lib/service/scaffold-service";
 import { useCodeContextStore } from "@/lib/store/useCodeContextStore";
+import { retrieveIdFromUrl } from "@/lib/utils";
+import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export const HomePage = () => {
   const [name, setName] = useState("");
-  const [url, setUrl]= useState("")
+  const [url, setUrl] = useState("");
+  const [isRetrieving, setIsRetrieving] = useState(false);
   const setProject = useCodeContextStore((s) => s.setProject);
   const router = useRouter();
   return (
@@ -93,27 +97,41 @@ export const HomePage = () => {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Import Scaffold</DialogTitle>
-                <DialogDescription>
-                  Paste a scaffold URL
-                </DialogDescription>
+                <DialogDescription>Paste a scaffold URL</DialogDescription>
               </DialogHeader>
               <Input value={url} onChange={(e) => setUrl(e.target.value)} />
               <DialogFooter>
                 <Button
+                  disabled={false}
                   onClick={async () => {
-                    if (url.trim().length == 0) {
-                      toast.error("Url cannot be empty");
-                      return;
+                    try {
+                      setIsRetrieving(true);
+                      if (url.trim().length == 0) {
+                        toast.error("Url cannot be empty");
+                        return;
+                      }
+                      const id = retrieveIdFromUrl(url);
+                      if (!id) {
+                        toast.error("Invalid URL");
+                        return;
+                      }
+
+                      const scaffold =
+                        await scaffoldService.retrieveScaffold(id);
+                      setIsRetrieving(false);
+                      setProject({
+                        name: scaffold.name,
+                        children: scaffold.children,
+                      });
+                      router.push(`/${id}`);
+                    } catch (error) {
+                      console.error(error);
+                      toast.error("Failed to import scaffold");
                     }
-                    // const project = await fetchProject
-                    // setProject({
-                    //   name,
-                    //   children: [],
-                    // });
-                    // router.push(`/new?name=${name}`);
                   }}
                 >
-                  Create
+                  {isRetrieving && <Loader2Icon className="animate-spin" />}
+                  {isRetrieving ? "Importing..." : "Import"}
                 </Button>
               </DialogFooter>
             </DialogContent>

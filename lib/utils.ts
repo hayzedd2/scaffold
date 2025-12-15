@@ -1,3 +1,4 @@
+import { TreeNode } from "@/type";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -16,4 +17,48 @@ export const downloadFile = (content: string, filename: string) => {
   a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
+};
+
+export const retrieveIdFromUrl = (url: string): string | null => {
+  try {
+    const { pathname } = new URL(url);
+    const id = pathname.split("/").filter(Boolean).pop();
+    return id ?? null;
+  } catch {
+    return null;
+  }
+};
+
+
+type FileEntry = {
+  path: string;
+  name: string;
+  content: string;
+};
+
+export const getAllFiles = (
+  children: TreeNode[], 
+  parentPath: string = ""
+): FileEntry[] => {
+  const files: FileEntry[] = [];
+  
+  children.forEach((child) => {
+    const currentPath = parentPath 
+      ? `${parentPath}/${child.name}` 
+      : child.name;
+    
+    if (child.type === "file") {
+      files.push({
+        path: currentPath,
+        name: child.name,
+        content: child.content
+      });
+    }
+    
+    if (child.type === "folder" && child.children) {
+      files.push(...getAllFiles(child.children, currentPath));
+    }
+  });
+  
+  return files;
 };

@@ -18,3 +18,5 @@ export interface Project {
   name: string;
   children: TreeNode[];
 }
+
+export type supportedCopyMethods = "llm"|"markdown"|"json"|"fileTree"

@@ -1,7 +1,7 @@
 import { TreeNode } from "@/type";
 
 export const scaffoldService = {
-  createScaffold: async (name: string, children: TreeNode[])=> {
+  createScaffold: async (name: string, children: TreeNode[]) => {
     const res = await fetch(`api/scaffolds`, {
       method: "POST",
       headers: {
@@ -14,5 +14,13 @@ export const scaffoldService = {
     }
     const data = await res.json();
     console.log(data);
+  },
+  retrieveScaffold: async (id: string) => {
+    const res = await fetch(`api/scaffolds/${id}`);
+    if (!res.ok) {
+      throw new Error(`Failed to retrieve scaffold: ${res.status}`);
+    }
+    const data = await res.json();
+    return data;
   },
 };

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Loader2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
-import { IconSelector } from "@tabler/icons-react";
+import { CopyScaffoldButton } from "./copy-scaffold-button";
 
 export const Header = () => {
   const { setProjectName, project } = useCodeContextStore();
@@ -21,7 +21,7 @@ export const Header = () => {
       />
 
       <div className="flex items-center gap-2">
-        <Button variant={"outline"} className="cursor-pointer">Copy<IconSelector/></Button>
+        <CopyScaffoldButton/>
         <Button
           disabled={isPublishing}
           onClick={async () => {
@@ -40,7 +40,7 @@ export const Header = () => {
                 project.children,
               );
               setIsPublishing(false);
-            }catch(error){
+            }catch{
               toast.error("Failed to publish scaffold");
               setIsPublishing(false)
             }
