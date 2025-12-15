@@ -6,6 +6,7 @@ export async function GET(
   { params }: RouteContext<"/api/scaffolds/[id]">,
 ) {
   const { id } = await params;
+  console.log("id from server", id)
   try {
     const result = await sql`
       SELECT * FROM scaffolds WHERE id = ${id}

@@ -4,9 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = async (request: NextRequest) => {
   try {
     const { name, children } = await request.json();
-    console.log("Received name:", name);
-    console.log("Received children:", children);
-
     if (!name || !children) {
       return NextResponse.json(
         { error: "Name and children are required" },

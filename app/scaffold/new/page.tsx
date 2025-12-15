@@ -3,7 +3,7 @@ import { App } from "@/components/app"
 
 const page = ()=>{
   return(
-    <App/>
+    <App isAuthor={true} />
   )
 }
 

@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,7 +31,7 @@ interface IcopyMethodTypes {
   description: string;
 }
 export const CopyScaffoldButton = () => {
-  const project = useCodeContextStore((s) => s.project);
+  const scaffold = useCodeContextStore((s) => s.scaffold);
   const copyMethodTypes: IcopyMethodTypes[] = [
     {
       key: "llm",
@@ -38,12 +39,12 @@ export const CopyScaffoldButton = () => {
       label: "Copy for LLM",
       description: "Optimized format for ChatGPT/Claude",
     },
-    {
-      key: "json",
-      icon: BracesIcon,
-      label: "Copy as JSON",
-      description: "Copy Scaffold as JSON",
-    },
+    // {
+    //   key: "json",
+    //   icon: BracesIcon,
+    //   label: "Copy as JSON",
+    //   description: "Copy Scaffold as JSON",
+    // },
     {
       key: "markdown",
       icon: FileCodeCornerIcon,
@@ -68,10 +69,10 @@ export const CopyScaffoldButton = () => {
       <DropdownMenuContent align="end">
         {copyMethodTypes.map((type, i) => {
           return (
-            <>
+            <React.Fragment key={type.key}>
               <DropdownMenuItem
                 onClick={() => {
-                  const { name, children } = project;
+                  const { name, children } = scaffold;
                   const output = copyScaffold[type.key]({
                     name,
                     children,
@@ -79,7 +80,7 @@ export const CopyScaffoldButton = () => {
                   console.log(output);
                   toast.success(`Copied ${type.key} to clipboard`);
                 }}
-                key={type.key}
+              
                 className="cursor-pointer"
               >
                 <type.icon />
@@ -91,7 +92,7 @@ export const CopyScaffoldButton = () => {
                 </div>
               </DropdownMenuItem>
               {i !== copyMethodTypes.length - 1 && <DropdownMenuSeparator />}
-            </>
+            </React.Fragment>
           );
         })}
       </DropdownMenuContent>
