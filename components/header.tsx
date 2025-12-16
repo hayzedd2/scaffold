@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { CopyScaffoldButton } from "./copy-scaffold-button";
 import { useRouter } from "next/navigation";
 
-export const Header = ({ isAuthor }: { isAuthor?: boolean }) => {
+export const Header = ({ isAuthor,id }: { isAuthor?: boolean,id?:string }) => {
   const { setScaffoldName, scaffold } = useCodeContextStore();
   const [isPublishing, setIsPublishing] = useState(false);
   const searchParams = useSearchParams();
@@ -62,7 +62,7 @@ export const Header = ({ isAuthor }: { isAuthor?: boolean }) => {
         ) : (
           <Button
             className="cursor-pointer"
-            onClick={() => router.push(`/scaffold/new?id=${7}&remix=true`)}
+            onClick={() => router.push(`/scaffold/new?id=${id}&remix=true`)}
           >
             Remix scaffold
           </Button>

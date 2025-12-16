@@ -11,7 +11,6 @@ import { Button } from "./ui/button";
 import { IconSelector } from "@tabler/icons-react";
 import {
   BotIcon,
-  BracesIcon,
   FileCodeCornerIcon,
   FolderTreeIcon,
   LucideProps,
@@ -39,12 +38,6 @@ export const CopyScaffoldButton = () => {
       label: "Copy for LLM",
       description: "Optimized format for ChatGPT/Claude",
     },
-    // {
-    //   key: "json",
-    //   icon: BracesIcon,
-    //   label: "Copy as JSON",
-    //   description: "Copy Scaffold as JSON",
-    // },
     {
       key: "markdown",
       icon: FileCodeCornerIcon,
@@ -73,15 +66,13 @@ export const CopyScaffoldButton = () => {
               <DropdownMenuItem
                 onClick={() => {
                   const { name, children } = scaffold;
-                  const output = copyScaffold[type.key]({
+                  copyScaffold[type.key]({
                     name,
                     children,
                   });
-                  console.log(output);
-                  toast.success(`Copied ${type.key} to clipboard`);
+                  toast.success(`Copied to clipboard`);
                 }}
-              
-                className="cursor-pointer"
+                className="cursor-pointer items-start"
               >
                 <type.icon />
                 <div>

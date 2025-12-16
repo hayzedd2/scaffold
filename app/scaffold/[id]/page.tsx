@@ -9,7 +9,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <section>
       {scaffold ? (
-        <App isAuthor={false} scaffold={scaffold as unknown as IScaffold} />
+        <App isAuthor={false} scaffold={scaffold as unknown as IScaffold} id={id} />
       ) : (
         <InvalidScaffold/>
       )}

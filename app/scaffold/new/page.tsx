@@ -1,9 +1,9 @@
 import { App } from "@/components/app"
 
 
-const page = ()=>{
+const page = async ()=>{
   return(
-    <App isAuthor={true} />
+    <App isAuthor={true}  />
   )
 }
 

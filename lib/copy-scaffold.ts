@@ -3,7 +3,6 @@ import { getAllFiles } from "./utils";
 
 
 export const copyScaffold = {
-  // Optimized format for ChatGPT/Claude
   llm: (scaffold: { name: string; children: TreeNode[] }) => {
     const files = getAllFiles(scaffold.children);
     
@@ -23,7 +22,7 @@ export const copyScaffold = {
     return output;
   },
 
-  // Documentation with code blocks
+
   markdown: (scaffold: { name: string; children: TreeNode[] }) => {
     const files = getAllFiles(scaffold.children);
     
@@ -50,7 +49,7 @@ export const copyScaffold = {
     return output;
   },
 
-  // Visual ASCII tree structure
+ 
   fileTree: (scaffold: { name: string; children: TreeNode[] }) => {
     const buildTree = (nodes: TreeNode[], prefix: string = '', isLast: boolean = true): string => {
       let output = '';
@@ -76,7 +75,6 @@ export const copyScaffold = {
     return output;
   },
 
-  // Raw data for import/export
   json: (scaffold: { name: string; children: TreeNode[] }) => {
     const output = JSON.stringify(scaffold, null, 2);
     navigator.clipboard.writeText(output);

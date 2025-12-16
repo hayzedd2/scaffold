@@ -1,8 +1,8 @@
-export default function SuccessPage() {
+import { ScaffoldSuccess } from "@/components/scaffold-success"
+
+export default async function page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   return (
-    <div>
-      <h1>Scaffold Imported Successfully</h1>
-      <p>Your scaffold has been successfully imported.</p>
-    </div>
-  );
+    <ScaffoldSuccess id={id} />
+  )
 }

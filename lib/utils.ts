@@ -62,3 +62,9 @@ export const getAllFiles = (
   
   return files;
 };
+
+
+export const generateScaffoldLink = (id: string): string => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
+  return `${baseUrl}/scaffold/${id}/`;
+};

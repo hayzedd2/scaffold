@@ -17,89 +17,68 @@ import { Loader2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { CreateScaffold } from "./create-scaffold";
 
 export const NewScaffold = () => {
-  const [name, setName] = useState("");
   const [url, setUrl] = useState("");
   const [isRetrieving, setIsRetrieving] = useState(false);
   const setScaffold = useCodeContextStore((s) => s.setScaffold);
   const router = useRouter();
   return (
     <div className="flex gap-2">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant={"outline"} className="cursor-pointer">
-            New scaffold
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>New Scaffold</DialogTitle>
-            <DialogDescription>Give your scaffold a name.</DialogDescription>
-          </DialogHeader>
-          <Input value={name} onChange={(e) => setName(e.target.value)} />
-          <DialogFooter>
-            <Button
-              onClick={() => {
-                if (name.trim().length == 0) {
-                  toast.error("Name cannot be empty");
-                  return;
-                }
-                setScaffold({
-                  name,
-                  children: [],
-                });
-                router.push(`/new?name=${name}`);
-              }}
-            >
-              Create
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <CreateScaffold />
       <Dialog>
         <DialogTrigger asChild>
           <Button className="cursor-pointer ">Import scaffold</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Import Scaffold</DialogTitle>
-            <DialogDescription>Paste a scaffold URL</DialogDescription>
-          </DialogHeader>
-          <Input value={url} onChange={(e) => setUrl(e.target.value)} />
-          <DialogFooter>
-            <Button
-              disabled={isRetrieving}
-              onClick={async () => {
-                try {
-                  if (url.trim().length == 0) {
-                    toast.error("Url cannot be empty");
-                    return;
-                  }
-                  const id = retrieveIdFromUrl(url);
-                  if (!id) {
-                    toast.error("Invalid URL");
-                    return;
-                  }
-                  setIsRetrieving(true);
-                  const scaffold = await scaffoldService.retrieveScaffold(id);
-                  setIsRetrieving(false);
-                  setScaffold({
-                    name: scaffold.name,
-                    children: scaffold.children,
-                  });
-                  router.push(`/${id}`);
-                } catch (error) {
-                  setIsRetrieving(false);
-                  console.error(error);
-                  toast.error("Failed to import scaffold");
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              try {
+                if (url.trim().length == 0) {
+                  toast.error("Link cannot be empty");
+                  return;
                 }
-              }}
-            >
-              {isRetrieving && <Loader2Icon className="animate-spin" />}
-              {isRetrieving ? "Importing..." : "Import"}
-            </Button>
-          </DialogFooter>
+                const id = retrieveIdFromUrl(url);
+                if (!id) {
+                  toast.error("Invalid link");
+                  return;
+                }
+                setIsRetrieving(true);
+                const scaffold = await scaffoldService.retrieveScaffold(id);
+                setIsRetrieving(false);
+                setScaffold({
+                  name: scaffold.name,
+                  children: scaffold.children,
+                });
+                router.push(`/scaffold/${id}`);
+              } catch {
+                setIsRetrieving(false);
+                toast.error("Failed to import scaffold");
+              }
+            }}
+            className="flex flex-col gap-4"
+          >
+            <DialogHeader>
+              <DialogTitle>Import Scaffold</DialogTitle>
+              <DialogDescription>Paste a scaffold Link</DialogDescription>
+            </DialogHeader>
+            <Input
+              value={url}
+              disabled={isRetrieving}
+              onChange={(e) => setUrl(e.target.value)}
+            />
+            <DialogFooter>
+              <Button
+                type="submit"
+                disabled={isRetrieving}
+              >
+                {isRetrieving && <Loader2Icon className="animate-spin" />}
+                {isRetrieving ? "Importing..." : "Import"}
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

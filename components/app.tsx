@@ -10,7 +10,7 @@ import { IScaffold } from "@/type";
 import { useEffect, useState } from "react";
 import { LoadingScaffold } from "./loading-scaffold";
 
-export const App = ({ scaffold,isAuthor }: { scaffold?: IScaffold,isAuthor?:boolean }) => {
+export const App = ({ scaffold,isAuthor, id }: { scaffold?: IScaffold,isAuthor?:boolean, id?: string }) => {
   const setProject = useCodeContextStore((state) => state.setScaffold);
   const selectedFile = useCodeContextStore((state) => {
     if (!state.selectedFileId) return null;
@@ -35,7 +35,7 @@ export const App = ({ scaffold,isAuthor }: { scaffold?: IScaffold,isAuthor?:bool
       <AppSidebar />
       <SidebarInset>
         <div className="min-h-screen flex flex-col ">
-          <Header isAuthor={isAuthor}/>
+          <Header isAuthor={isAuthor} id={id}/>
           <div className="p-2 flex-1 ">
             {selectedFile ? (
               <CodeEditor
