@@ -1,4 +1,4 @@
-import { FileNode, FolderNode, IScaffold } from "@/type";
+import { FileMeta, FileNode, FolderNode, IScaffold } from "@/type";
 import { create } from "zustand";
 import { generateId } from "../utils";
 import { deleteNode, findNode, updateNode } from "../nodes";
@@ -12,6 +12,7 @@ interface CodeContextState {
   addFolder: (parentId: string | null, folderName?: string) => void;
   rename: (nodeId: string, newName: string) => void;
   updateFileContent: (fileId: string, content: string) => void;
+  updateFileMeta: (fileId: string, meta: FileMeta) => void;
   deleteNode: (nodeId: string) => void;
   selectFile: (fileId: string | null) => void;
   getSelectedFile: () => FileNode | null;
@@ -23,7 +24,7 @@ interface CodeContextState {
 export const useCodeContextStore = create<CodeContextState>((set, get) => ({
   scaffold: {
     name: "untitled",
-    children:[]
+    children: [],
   },
   selectedFileId: null,
   setScaffold: (scaffold: IScaffold) => set({ scaffold }),
@@ -38,6 +39,9 @@ export const useCodeContextStore = create<CodeContextState>((set, get) => ({
         name: fileName,
         type: "file",
         content: "",
+        fileMeta: {
+          highlightedLines: [],
+        },
       };
 
       if (!parentId) {
@@ -113,7 +117,7 @@ export const useCodeContextStore = create<CodeContextState>((set, get) => ({
   rename: (nodeId: string, newName: string) =>
     set((state) => {
       const updatedChildren = updateNode(
-          state.scaffold.children,
+        state.scaffold.children,
         nodeId,
         (node) => ({
           ...node,
@@ -186,5 +190,24 @@ export const useCodeContextStore = create<CodeContextState>((set, get) => ({
     set({
       scaffold: { name: "untitled", children: [] },
       selectedFileId: null,
+    }),
+  updateFileMeta: (fileId: string, meta: Partial<FileMeta>) =>
+    set((state) => {
+      const updatedChildren = updateNode(
+        state.scaffold.children,
+        fileId,
+        (node) => {
+          if (node.type === "file") {
+            return {
+              ...node,
+              fileMeta: { ...node.fileMeta, ...meta },
+            };
+          }
+          return node;
+        },
+      );
+      return {
+        scaffold: { ...state.scaffold, children: updatedChildren },
+      };
     }),
 }));

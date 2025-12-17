@@ -5,14 +5,14 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty"
-import { CircleOffIcon } from "lucide-react"
+import { IconMoodEmpty } from "@tabler/icons-react"
 
 export function EmptyEditor() {
   return (
     <Empty className="flex-1 h-full">
       <EmptyHeader>
         <EmptyMedia variant="icon">
-          <CircleOffIcon  />
+          <IconMoodEmpty  />
         </EmptyMedia>
         <EmptyTitle>No file selected Yet</EmptyTitle>
         <EmptyDescription>

@@ -41,7 +41,7 @@ export const App = ({ scaffold,isAuthor, id }: { scaffold?: IScaffold,isAuthor?:
               <CodeEditor
                 code={selectedFile.content}
                 fileName={selectedFile.name}
-                highlightedLineNumbers={[6, 21, 9]}
+                highlightedLines={selectedFile.fileMeta?.highlightedLines || []}
                 showLineNumbers
               />
             ) : (

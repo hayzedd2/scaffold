@@ -1,8 +1,15 @@
+
+export interface FileMeta {
+  highlightedLines?: number[];
+}
+
 export interface FileNode {
   id: string;
   name: string;
   type: "file";
   content: string;
+  fileMeta?:FileMeta
+  
 }
 
 export interface FolderNode {

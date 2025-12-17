@@ -8,9 +8,21 @@ import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import { CopyScaffoldButton } from "./copy-scaffold-button";
 import { useRouter } from "next/navigation";
+import { IconArrowBackUp } from "@tabler/icons-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-export const Header = ({ isAuthor,id }: { isAuthor?: boolean,id?:string }) => {
-  const { setScaffoldName, scaffold } = useCodeContextStore();
+export const Header = ({
+  isAuthor,
+  id,
+}: {
+  isAuthor?: boolean;
+  id?: string;
+}) => {
+  const { setScaffoldName, scaffold, reset } = useCodeContextStore();
   const [isPublishing, setIsPublishing] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -26,6 +38,16 @@ export const Header = ({ isAuthor,id }: { isAuthor?: boolean,id?:string }) => {
       />
 
       <div className="flex items-center gap-2">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button className="cursor-pointer" onClick={() => reset()}>
+              <IconArrowBackUp size={18} />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Reset scaffold</p>
+          </TooltipContent>
+        </Tooltip>
         <CopyScaffoldButton />
         {isAuthor ? (
           <Button
@@ -47,7 +69,7 @@ export const Header = ({ isAuthor,id }: { isAuthor?: boolean,id?:string }) => {
                 );
                 setIsPublishing(false);
                 router.push(`/scaffold/${result.id}/success`);
-              } catch(err) {
+              } catch (err) {
                 console.error(err);
                 toast.error("Failed to publish scaffold");
                 setIsPublishing(false);
