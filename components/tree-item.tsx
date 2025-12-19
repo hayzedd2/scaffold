@@ -62,7 +62,6 @@ export const TreeItem = ({ node }: { node: TreeNode }) => {
     if (trimmedValue && pendingChild) {
       if (pendingChild.type === "file") {
         addFile(root, trimmedValue);
-        // selectFile()
       } else if (pendingChild.type === "folder") {
         addFolder(root, trimmedValue);
       }

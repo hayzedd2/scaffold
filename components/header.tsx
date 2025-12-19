@@ -14,6 +14,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { SidebarTrigger } from "./ui/sidebar";
 
 export const Header = ({
   isAuthor,
@@ -26,11 +28,12 @@ export const Header = ({
   const [isPublishing, setIsPublishing] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const isMobile = useIsMobile()
   useEffect(() => {
     setScaffoldName(searchParams.get("name") || scaffold.name);
   }, [searchParams]);
   return (
-    <div className="flex px-4 py-3 items-center justify-between">
+    <div className="flex px-4 py-3 items-center flex-wrap gap-2 justify-between">
       <input
         className="outline-none"
         onChange={(e) => setScaffoldName(e.target.value)}
@@ -38,6 +41,7 @@ export const Header = ({
       />
 
       <div className="flex items-center gap-2">
+        {isMobile && <SidebarTrigger/>}
         <Tooltip>
           <TooltipTrigger asChild>
             <button className="cursor-pointer" onClick={() => reset()}>

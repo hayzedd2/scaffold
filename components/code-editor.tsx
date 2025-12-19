@@ -125,6 +125,7 @@ export const CodeEditor = ({
                   border-left: 3px solid transparent;
                   display: inline-block;
                   width: 100%;
+                 
                 }
                 .shiki-container :global(.highlighted-line) {
                   background-color: #0f2f57;

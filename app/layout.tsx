@@ -9,8 +9,8 @@ const fira_code = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "CodeContext",
-  description: "",
+  title: "Scaffold",
+  description: "Fastest way to share minimal, contextual code examples.",
 };
 
 export default function RootLayout({

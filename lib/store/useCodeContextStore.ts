@@ -1,6 +1,6 @@
-import { FileMeta, FileNode, FolderNode, IScaffold } from "@/type";
+import { FileMeta, FileNode, FolderNode, IScaffold, TreeNode } from "@/type";
 import { create } from "zustand";
-import { generateId } from "../utils";
+import { generateId, getUniqueFileName } from "../utils";
 import { deleteNode, findNode, updateNode } from "../nodes";
 
 interface CodeContextState {
@@ -32,18 +32,29 @@ export const useCodeContextStore = create<CodeContextState>((set, get) => ({
     set((state) => ({
       scaffold: { ...state.scaffold, name },
     })),
-  addFile: (parentId: string | null, fileName: string = "untitled.txt") =>
+  addFile: (parentId: string | null, fileName: string = "untitled.txt") => {
+    const state = get();
+    let targetChildren: TreeNode[];
+    if (!parentId) {
+      targetChildren = state.scaffold.children;
+    } else {
+      const parentNode = findNode(state.scaffold.children, parentId);
+      if (!parentNode || parentNode.type !== "folder") {
+        return state; // Invalid parent,
+      }
+      targetChildren = parentNode.children;
+    }
+    const uniqueFileName = getUniqueFileName(targetChildren, fileName);
+    const newFile: FileNode = {
+      id: generateId("file"),
+      name: uniqueFileName,
+      type: "file",
+      content: "",
+      fileMeta: {
+        highlightedLines: [],
+      },
+    };
     set((state) => {
-      const newFile: FileNode = {
-        id: generateId("file"),
-        name: fileName,
-        type: "file",
-        content: "",
-        fileMeta: {
-          highlightedLines: [],
-        },
-      };
-
       if (!parentId) {
         // Add to root
         return {
@@ -51,6 +62,7 @@ export const useCodeContextStore = create<CodeContextState>((set, get) => ({
             ...state.scaffold,
             children: [...state.scaffold.children, newFile],
           },
+          selectedFileId: newFile.id,
         };
       }
 
@@ -71,8 +83,10 @@ export const useCodeContextStore = create<CodeContextState>((set, get) => ({
 
       return {
         scaffold: { ...state.scaffold, children: updatedChildren },
+        selectedFileId: newFile.id,
       };
-    }),
+    });
+  },
   // Add folder to a folder (parentId = null means root)
   addFolder: (parentId: string | null, folderName: string = "new-folder") =>
     set((state) => {

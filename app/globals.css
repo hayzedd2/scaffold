@@ -133,6 +133,7 @@
     background-color: transparent !important;
     line-height: 1.5 !important;
     padding-bottom: 1rem !important;
+    overflow-x: auto;
 }
 
 /* shake animation */
