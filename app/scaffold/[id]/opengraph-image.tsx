@@ -22,12 +22,14 @@ export default async function Image({ params }: Props) {
   return new ImageResponse(
     <div
       style={{
-        fontSize: 44,
+        fontSize: 70,
         background: "black",
         width: "100%",
         height: "100%",
         display: "flex",
-        alignItems: "flex-end",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
 
         color: "white",
         fontFamily: "BBH Bartle",
@@ -36,9 +38,8 @@ export default async function Image({ params }: Props) {
       <p
         style={{
           textTransform: "capitalize",
-
           margin: 0,
-          padding: "20px",
+          padding: "50px",
    
         }}
       >
