@@ -33,7 +33,7 @@ export const App = ({ scaffold,isAuthor, id }: { scaffold?: IScaffold,isAuthor?:
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset className="overflow-hidden">
         <div className="min-h-screen flex flex-col ">
           <Header isAuthor={isAuthor} id={id}/>
           <div className="p-2 flex-1 ">

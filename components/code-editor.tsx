@@ -41,7 +41,7 @@ export const CodeEditor = ({
         lineElement.getAttribute("data-line") || "0",
         10,
       );
-      console.log(lineNumber, "ln");
+    
 
       // Toggle line in highlightedLines array
       const newHighlightedLines = highlightedLines.includes(lineNumber)
@@ -78,6 +78,7 @@ export const CodeEditor = ({
             },
           ],
         });
+        console.log(highlightedHtml)
         setHtml(highlightedHtml);
       } catch (error) {
         console.error("Syntax highlighting error:", error);
@@ -102,15 +103,14 @@ export const CodeEditor = ({
               <IconFile size={16} />
               {fileName}
             </span>
-
             <EditorControls code={code} />
           </div>
           {isLoading ? (
-            <div className="  bg-sidebar text-sm text-fg1 py-4 flex items-center justify-center">
+            <div className="bg-sidebar text-sm text-fg1 py-4 flex items-center justify-center">
               <Loader2Icon className="animate-spin size-4" />
             </div>
           ) : (
-            <div className="relative">
+            <div className="relative max-w-full"> 
               <div
                 onClick={handleClick}
                 dangerouslySetInnerHTML={{
@@ -119,26 +119,27 @@ export const CodeEditor = ({
                 className={`shiki-container ${className}`}
               />
               <style jsx>{`
-               
+                .shiki-container :global(pre) {
+                  margin: 0;
+                }
+                
                 .shiki-container :global(.line) {
-                  /* Give every line a transparent border so the text always aligns */
                   border-left: 3px solid transparent;
                   display: inline-block;
-                  width: 100%;
-                 
                 }
+                
                 .shiki-container :global(.highlighted-line) {
                   background-color: #0f2f57;
                   display: inline-block;
-                  width: 100%;
+                  min-width: 100%;
                   border-left: 3px solid #52a8ff;
                 }
-
+                
                 .shiki-container :global(code) {
                   counter-reset: line;
                   cursor: default;
                 }
-
+                
                 .shiki-container :global(code .line[data-line]::before) {
                   counter-increment: line;
                   content: counter(line);

@@ -6,7 +6,6 @@ export async function GET(
   { params }: RouteContext<"/api/scaffolds/[id]">,
 ) {
   const { id } = await params;
-  console.log("id from server", id)
   try {
     const result = await sql`
       SELECT * FROM scaffolds WHERE id = ${id}
@@ -20,8 +19,7 @@ export async function GET(
     }
 
     return NextResponse.json(result[0]);
-  } catch (error) {
-    console.error("Error fetching scaffold:", error);
+  } catch{
     return NextResponse.json(
       { error: "Failed to fetch scaffold" },
       { status: 500 },

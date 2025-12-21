@@ -81,7 +81,7 @@ export const TreeItem = ({ node }: { node: TreeNode }) => {
     if (!pendingChild) return null;
 
     return (
-      <div className="w-full flex items-center justify-between px-2 my-1 py-1.5 text-xs rounded-md bg-accent">
+      <div className="w-full flex items-center justify-between px-2 my-1 py-1.5  rounded-md bg-accent">
         <div className="flex items-center gap-1 flex-1 min-w-0">
           {pendingChild.type === "file" ? (
             <IconFile size={16} className="shrink-0 text-muted-foreground" />

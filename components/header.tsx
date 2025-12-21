@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { SidebarTrigger } from "./ui/sidebar";
+import { AboutModal } from "./about-modal";
 
 export const Header = ({
   isAuthor,
@@ -28,7 +29,7 @@ export const Header = ({
   const [isPublishing, setIsPublishing] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
   useEffect(() => {
     setScaffoldName(searchParams.get("name") || scaffold.name);
   }, [searchParams]);
@@ -41,17 +42,28 @@ export const Header = ({
       />
 
       <div className="flex items-center gap-2">
-        {isMobile && <SidebarTrigger/>}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button className="cursor-pointer" onClick={() => reset()}>
-              <IconArrowBackUp size={18} />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Reset scaffold</p>
-          </TooltipContent>
-        </Tooltip>
+        {isMobile && (
+          <Button variant={"secondary"} size={"icon-sm"} asChild>
+            <SidebarTrigger />
+          </Button>
+        )}
+        {!isMobile && (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                className="cursor-pointer"
+                onClick={() => reset()}
+                variant={"secondary"}
+                size={"icon-sm"}
+              >
+                <IconArrowBackUp size={18} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Reset scaffold</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
         <CopyScaffoldButton />
         {isAuthor ? (
           <Button
@@ -93,6 +105,7 @@ export const Header = ({
             Remix scaffold
           </Button>
         )}
+        <AboutModal />
       </div>
     </div>
   );

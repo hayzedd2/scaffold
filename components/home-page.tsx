@@ -1,35 +1,42 @@
+import { IconBrandGithub } from "@tabler/icons-react";
 import { NewScaffold } from "./new-scaffold";
 
 export const HomePage = () => {
- 
   return (
-    <section className="min-h-[100dvh] flex items-center justify-center flex-col px-4">
-      <div>
-        <h1 className="text-[1.5rem]">Scaffold</h1>
-        <ul className="mb-4">
-          <li className="flex items-center gap-1.5">
-            <span className="bg-muted-foreground shrink-0 size-1.5"></span>
-            <span className="text-muted-foreground text-sm">
+    <section className="min-h-[100dvh] pt-50 px-4">
+      <div className="max-w-[600px] mx-auto">
+        <h1 className="mb-10 text-4xl md:text-5xl">Scaffold</h1>
+        <div className="space-y-3  text-sm text-muted-foreground">
+          <p>
+            <strong>Scaffold</strong> is a simple tool for quickly sharing code
+            samples and project templates with proper context.
+          </p>
+          <p>
+            Create a file tree, add your code snippets, and share a link.
+            Perfect for code reviews, bug reports, or sharing boilerplates.
+          </p>
+
+          <p>
+            Built for developers who need to share <strong>code context</strong>{" "}
+            quickly·
+          </p>
+          <NewScaffold />
+          <div className="flex items-baseline justify-between">
+            <div className="pt-4 text-xs text-gray-500">
+              !Made with 🤬 by{" "}
+              <a
+                href="https://alhameen.xyz"
+                className="font-bold underline hover:underline"
+              >
+                Alhameen
+              </a>
+            </div>
+            <a href="https://github.com/hayzedd2/scaffold" target="_blank">
               {" "}
-              Fastest way to share minimal, contextual code examples.
-            </span>
-          </li>
-          <li className="flex items-center gap-1.5">
-            <span className="bg-muted-foreground shrink-0 size-1.5"></span>
-            <span className="text-muted-foreground text-sm">
-              Create a file tree, create the relevant files.
-            </span>
-          </li>
-          <li className="flex items-center gap-1.5">
-            <span className="bg-muted-foreground shrink-0 size-1.5"></span>
-            <span className="text-muted-foreground text-sm">
-              {" "}
-              Get a shareable link.
-            </span>
-          </li>
-         
-        </ul>
-        <NewScaffold/>
+              <IconBrandGithub className="text-muted-foreground cursor-pointer size-4" />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
