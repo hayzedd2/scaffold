@@ -78,10 +78,8 @@ export const CodeEditor = ({
             },
           ],
         });
-        console.log(highlightedHtml)
         setHtml(highlightedHtml);
-      } catch (error) {
-        console.error("Syntax highlighting error:", error);
+      } catch {
         // Fallback to plain text
         setHtml(`<pre><code>${code}</code></pre>`);
       } finally {
@@ -110,7 +108,7 @@ export const CodeEditor = ({
               <Loader2Icon className="animate-spin size-4" />
             </div>
           ) : (
-            <div className="relative max-w-full"> 
+            <div className="relative max-w-full no-scrollbar"> 
               <div
                 onClick={handleClick}
                 dangerouslySetInnerHTML={{

@@ -106,7 +106,36 @@ export const TreeItem = ({ node }: { node: TreeNode }) => {
   };
 
   if (node.type === "file") {
-    return (
+    return isRenaming ? (
+      <div className="w-full flex items-center justify-between px-2 py-1.5 text-xs rounded-md bg-accent">
+        <div className="flex items-center gap-1 flex-1 min-w-0">
+          <IconFile size={16} className="shrink-0" />
+          <input
+            ref={inputRef}
+            className="flex-1 min-w-0 outline-none bg-transparent font-medium"
+            defaultValue={node.name}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleRenameSubmit(e.currentTarget.value);
+              } else if (e.key === "Escape") {
+                setIsRenaming(false);
+              }
+            }}
+            onBlur={(e) => handleRenameSubmit(e.target.value)}
+          />
+        </div>
+        <TrashIcon
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteNode(node.id);
+          }}
+          style={{
+            opacity: hoveredFile === node.id ? 1 : 0,
+          }}
+          className="size-3 shrink-0 text-red-500 cursor-pointer transition-all"
+        />
+      </div>
+    ) : (
       <button
         onMouseEnter={() => setHoveredFile(node.id)}
         onMouseLeave={() => setHoveredFile(null)}
@@ -118,26 +147,8 @@ export const TreeItem = ({ node }: { node: TreeNode }) => {
       >
         <div className="flex items-center gap-1 flex-1 min-w-0">
           <IconFile size={16} className="shrink-0" />
-          {isRenaming ? (
-            <input
-              ref={inputRef}
-              className="flex-1 min-w-0 outline-none bg-transparent font-medium"
-              defaultValue={node.name}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleRenameSubmit(e.currentTarget.value);
-                } else if (e.key === "Escape") {
-                  setIsRenaming(false);
-                }
-              }}
-              onBlur={(e) => handleRenameSubmit(e.target.value)}
-              onClick={(e) => e.stopPropagation()}
-            />
-          ) : (
-            <span className="truncate font-medium min-w-0">{node.name}</span>
-          )}
+          <span className="truncate font-medium min-w-0">{node.name}</span>
         </div>
-
         <TrashIcon
           onClick={(e) => {
             e.stopPropagation();
@@ -151,7 +162,6 @@ export const TreeItem = ({ node }: { node: TreeNode }) => {
       </button>
     );
   }
-
 
   return (
     <div>

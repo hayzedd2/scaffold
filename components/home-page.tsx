@@ -3,8 +3,8 @@ import { NewScaffold } from "./new-scaffold";
 
 export const HomePage = () => {
   return (
-    <section className="min-h-[100dvh] pt-50 px-4">
-      <div className="max-w-[600px] mx-auto">
+    <section className="min-h-[100dvh]  px-4">
+      <div className="max-w-[600px] pt-40 md:pt-50 mx-auto">
         <h1 className="mb-10 text-4xl md:text-5xl">Scaffold</h1>
         <div className="space-y-3  text-sm text-muted-foreground">
           <p>

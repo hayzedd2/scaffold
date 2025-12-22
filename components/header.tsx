@@ -35,11 +35,22 @@ export const Header = ({
   }, [searchParams]);
   return (
     <div className="flex px-4 py-3 items-center flex-wrap gap-2 justify-between">
-      <input
-        className="outline-none"
-        onChange={(e) => setScaffoldName(e.target.value)}
-        value={scaffold.name}
-      />
+      {isMobile ? (
+        <div className="flex items-center justify-between w-full">
+          <input
+            className="outline-none"
+            onChange={(e) => setScaffoldName(e.target.value)}
+            value={scaffold.name}
+          />
+          <AboutModal />
+        </div>
+      ) : (
+        <input
+          className="outline-none"
+          onChange={(e) => setScaffoldName(e.target.value)}
+          value={scaffold.name}
+        />
+      )}
 
       <div className="flex items-center gap-2">
         {isMobile && (
@@ -105,7 +116,7 @@ export const Header = ({
             Remix scaffold
           </Button>
         )}
-        <AboutModal />
+        {!isMobile && <AboutModal />}
       </div>
     </div>
   );

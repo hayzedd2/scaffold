@@ -56,7 +56,7 @@ export const AboutModal = () => {
                   <strong>code context</strong> quickly·
                 </p>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-baseline justify-between">
                   <div className="pt-4 text-xs text-gray-500">
                     !Made with 🤬 by{" "}
                     <a
@@ -66,7 +66,7 @@ export const AboutModal = () => {
                       Alhameen
                     </a>
                   </div>
-                  <a href="https://github.com/hayzedd2/scaffold" target="_blank">
+                  <a className="w-8" href="https://github.com/hayzedd2/scaffold" target="_blank">
                     {" "}
                     <IconBrandGithub className="text-muted-foreground cursor-pointer size-4" />
                   </a>

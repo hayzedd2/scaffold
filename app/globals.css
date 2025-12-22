@@ -144,7 +144,7 @@
     }
     25% {
         transform: rotate(5deg);
-}
+    }
     50% {
         transform: rotate(-5deg);
     }
@@ -156,4 +156,13 @@
 .shake-icon:hover {
     animation: shake-wobble 0.5s ease-in-out 1;
     transform-origin: 50% 50%;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
