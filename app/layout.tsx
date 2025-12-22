@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/next";
 
 const fira_code = Fira_Code({
   subsets: ["latin"],
@@ -65,6 +66,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${fira_code.className} dark  antialiased`}>
         {children} <Toaster />
+        <Analytics />
       </body>
     </html>
   );
