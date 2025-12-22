@@ -25,7 +25,7 @@ export const HomePage = () => {
             <div className="pt-4 text-xs text-gray-500">
               !Made with 🤬 by{" "}
               <a
-                href="https://alhameen.xyz"
+                href="https://www.alhameen.xyz"
                 className="font-bold underline hover:underline"
               >
                 Alhameen
