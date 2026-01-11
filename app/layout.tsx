@@ -9,7 +9,7 @@ const fira_code = Fira_Code({
   variable: "--font-pt-serif",
 });
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://scaffold.alhameen.xyz";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://scaffold.alhameen.site";
 
 export const metadata: Metadata = {
   title: "Scaffold - Share Code Samples & Templates",

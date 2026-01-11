@@ -60,7 +60,7 @@ export const AboutModal = () => {
                   <div className="pt-4 text-xs text-gray-500">
                     !Made with 🤬 by{" "}
                     <a
-                      href="https://alhameen.xyz"
+                      href="https://alhameen.site"
                       className="font-bold underline hover:underline"
                     >
                       Alhameen
